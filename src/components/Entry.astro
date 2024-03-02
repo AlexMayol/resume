@@ -1,0 +1,23 @@
+---
+export interface Props {
+  name: string;
+  title?: string;
+  subTitle?: string;
+}
+
+const { name, title, subTitle } = Astro.props;
+---
+
+<div class="flex flex-row gap-2">
+  <aside class="w-32">{name}</aside>
+  <section class="flex-1">
+    <div class="divide-solid divide-x-1 text-sm">
+      {title && <span class="font-bold">{title}</span>}
+      {subTitle && <span>·</span>}
+      {subTitle && <span class="italic">{subTitle}</span>}
+    </div>
+    <div class="space-y-4">
+      <slot />
+    </div>
+  </section>
+</div>
