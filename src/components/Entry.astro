@@ -8,8 +8,8 @@ export interface Props {
 const { name, title, subTitle } = Astro.props;
 ---
 
-<div class="flex flex-row gap-2">
-  <aside class="w-32">{name}</aside>
+<div class="flex flex-col md:flex-row gap-2">
+  <aside class="md:w-32 text-xs md:text-base">{name}</aside>
   <section class="flex-1">
     <div class="divide-solid divide-x-1 text-sm">
       {title && <span class="font-bold">{title}</span>}
