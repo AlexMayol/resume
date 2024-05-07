@@ -25,6 +25,14 @@ import Section from "../components/Section.astro";
           >
         </h3>
       </div>
+      <section class="print:hidden flex justify-center">
+        <button
+          onclick="window.print()"
+          class="rounded-full px-4 py-2 border border-black"
+        >
+          Download PDF version</button
+        >
+      </section>
       <Section>
         <SectionTitle title="Working experience" />
 
