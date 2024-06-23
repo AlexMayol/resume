@@ -3,21 +3,40 @@ export interface Props {
   name: string;
   title?: string;
   subTitle?: string;
+  slug?: string;
 }
 
-const { name, title, subTitle } = Astro.props;
+const { name, title, subTitle, slug } = Astro.props;
+const underlineStyles = `group-hover:text-blue-800 transition duration-200
+      group-hover:after:w-full
+    after:content-[''] after:block after:w-0 after:h-[1px] after:bg-blue-700 after:transition-all after:duration-150
+    inline-block`;
 ---
 
-<div class="flex flex-col md:flex-row gap-2">
+<section class="group flex flex-col md:flex-row gap-2">
   <aside class="md:w-32 text-xs md:text-base">{name}</aside>
   <section class="flex-1">
-    <div class="divide-solid divide-x-1 text-sm">
-      {title && <span class="font-bold">{title}</span>}
-      {subTitle && <span>·</span>}
-      {subTitle && <span class="italic">{subTitle}</span>}
-    </div>
+    {
+      title && subTitle && (
+        <a
+          href={slug}
+          class={`${underlineStyles} divide-solid divide-x-1 text-sm`}
+        >
+          {title && <span class="font-bold">{title}</span>}
+          {subTitle && <span>·</span>}
+          {subTitle && <span class="italic">{subTitle}</span>}
+        </a>
+      )
+    }
     <div class="space-y-4">
       <slot />
     </div>
+    {
+      slug && (
+        <a href={slug} class={`${underlineStyles} print:hidden`}>
+          Learn more
+        </a>
+      )
+    }
   </section>
-</div>
+</section>

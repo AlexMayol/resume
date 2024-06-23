@@ -1,0 +1,24 @@
+---
+import { educationData } from "../../data";
+
+export async function getStaticPaths() {
+  return educationData.flatMap((education) => {
+    const { slug, ...rest } = education;
+    return [
+      {
+        params: {
+          name: slug,
+        },
+        props: rest,
+      },
+    ];
+  });
+}
+
+const { title, description, startDate, endDate } = Astro.props;
+---
+
+<p>{title}</p>
+{startDate} - {endDate}
+
+<Fragment set:html={description} />

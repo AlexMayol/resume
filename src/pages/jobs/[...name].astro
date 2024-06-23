@@ -1,0 +1,51 @@
+---
+import { jobsData } from "../../data";
+
+export async function getStaticPaths() {
+  return jobsData.flatMap((company) => {
+    const { slug, ...rest } = company;
+    return [
+      {
+        params: {
+          name: slug,
+        },
+        props: rest,
+      },
+    ];
+  });
+}
+
+const { name } = Astro.params;
+const { jobTitle, company, startDate, endDate, description, techStack } =
+  Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="description" content="Alejandro Mayol's resume" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{`${jobTitle} at ${company} | Alejandro Mayol`}</title>
+  </head>
+  <body>
+    <main class="max-w-[65ch] mx-auto leading-8 font flex flex-col gap-4 py-8">
+      <h1 class="text-center text-xl">{jobTitle} at {company}</h1>
+      <p class="text-center text-sm">{startDate} - {endDate}</p>
+
+      <h2 class="text-center text-xl">My role</h2>
+      <Fragment set:html={description} />
+
+      <h2 class="text-center text-xl">Tech stack</h2>
+      <div class="flex gap-4 items-center justify-center">
+        {
+          techStack.map((tech) => (
+            <span class="bg-slate-200 rounded-xl px-4 py-1 h-max text-center text-sm">
+              {tech}
+            </span>
+          ))
+        }
+      </div>
+    </main>
+  </body>
+</html>

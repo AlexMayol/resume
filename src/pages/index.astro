@@ -2,6 +2,8 @@
 import Entry from "../components/Entry.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import Section from "../components/Section.astro";
+
+import { jobsData, educationData } from "../data";
 ---
 
 <html lang="en">
@@ -11,7 +13,6 @@ import Section from "../components/Section.astro";
     <meta name="title" content="Alejandro Mayol" />
     <meta name="description" content="Alejandro Mayol's resume" />
     <meta name="viewport" content="width=device-width" />
-
     <title>Alejandro Mayol Carrión</title>
   </head>
   <body class="max-w-[65ch] mx-auto leading-8 font">
@@ -20,7 +21,7 @@ import Section from "../components/Section.astro";
         <h1 class="text-2xl font-bold mb-1">Alejandro Mayol Carrión</h1>
         <h2 class="text-base">Alicante, Spain</h2>
         <h3 class="text-base">
-          <a href="mailto:alexmayolc@gmail.com" class="hover:text-red-500"
+          <a href="mailto:alexmayolc@gmail.com" class="hover:text-blue-700"
             >alexmayolc@gmail.com</a
           >
         </h3>
@@ -36,112 +37,34 @@ import Section from "../components/Section.astro";
       <Section>
         <SectionTitle title="Working experience" />
 
-        <Entry
-          name="2/2022 - today"
-          title="Frontend developer"
-          subTitle="Job&Talent"
-        >
-          <p>
-            One of my main responsabilities is enabling the company's growth
-            through the development of useful internal tools and webapps.
-          </p>
-          <p>
-            I also contribute to the entire frontend ecosystem by developing and
-            maintaining an in-house design system library for React and
-            different tooling for a micro-frontend architecture.
-          </p>
-        </Entry>
-
-        <Entry
-          name="2/2021 - 2/2022"
-          title="Frontend developer"
-          subTitle="devaway_"
-        >
-          <p>
-            We worked on fast-paced startups from San Francisco to Brisbane to
-            help them develop their MVP and get VC funds.
-          </p>
-          <p>
-            I was able to work on different code bases and learn new
-            technologies from my coworkers.
-          </p>
-        </Entry>
-        <Entry
-          name="10/2018 - 2/2021"
-          title="Full-stack developer"
-          subTitle="Conwork"
-        >
-          <p>
-            I developed medium-sized e-commerces using modern front-end tools
-            like Vue.js and TailwindCSS. I focused on delivering
-            high-performance websites, with beautiful, handmade UIs and
-            SEO-friendly.
-          </p>
-          <p>
-            As for pure backend projects, I created several APIs with Lumen
-            (PHP) and Deno, and tested them with Postman and Insomnia.
-          </p>
-          <p>
-            I was also the lead developer in charge of modernizing the company's
-            tech stack and teaching my workmates how to use and customize tools
-            like Webpack, PostCSS, Parcel.js and GitHub Actions for continuous
-            delivery purposes.
-          </p>
-        </Entry>
-        <Entry
-          name="10/2018 - 2/2021"
-          title="Web Accessibility Consultant"
-          subTitle="Integratur"
-        >
-          <p>
-            I conducted several accessibility reports to help pointing out major
-            flags in websites and build multiple prototypes to show the end
-            client that a compliant website with the WCAG 2.0 would look and
-            feel the same or even better than their current website.
-          </p>
-          <p>
-            For this purpose, I used Vue.js, making both Single Page
-            Applications and Multi Page Applications (with SEO in mind) and we
-            tested out multiple approaches on accessible components and user
-            interfaces.
-          </p>
-        </Entry>
-        <Entry
-          name="06/2017 - 2/2018"
-          title="Junior Web Developer"
-          subTitle="Datanet Consultores"
-        >
-          <p>
-            Front-end developer in projects built with AngularJS, Angular2+ and
-            VueJS. In the backend we used .NET to consume existing Microsoft
-            Dynamics apps
-          </p>
-          <p>
-            Among other projects, I created a Mailchimp-like app, a visual
-            editor for creating responsive email templates and the intranet for
-            cedro.org
-          </p>
-        </Entry>
+        {
+          jobsData.reverse().map((company) => (
+            <Entry
+              slug={`jobs/${company.slug}`}
+              name={`${company.startDate} - ${company.endDate || "-"}`}
+              title={company.jobTitle}
+              subTitle={company.company}
+            >
+              <Fragment set:html={company.description} />
+            </Entry>
+          ))
+        }
       </Section>
 
       <Section>
         <SectionTitle title="Education" />
-        <Entry
-          name="2012 - 2016"
-          title="Bachelor of Multimedia Engineering"
-          subTitle="University of Alicante"
-        >
-          <p>
-            In this degree we learn everything you need to know to become a
-            software engineer.
-          </p>
-          <p>
-            We study various programming languages, build web app projects and
-            videogames and we are able to develop a real-world project from the
-            beginning to its end, learning soft skills along the way, like time
-            management and leadership.
-          </p>
-        </Entry>
+        {
+          educationData.reverse().map((institution) => (
+            <Entry
+              slug={`jobs/${institution.slug}`}
+              name={`${institution.startDate} - ${institution.endDate || "-"}`}
+              title={institution.title}
+              subTitle={institution.institution}
+            >
+              <Fragment set:html={institution.description} />
+            </Entry>
+          ))
+        }
       </Section>
 
       <Section>
